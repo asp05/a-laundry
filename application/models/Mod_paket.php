@@ -69,7 +69,25 @@ class Mod_paket extends CI_Model {
 		$this->db->from($this->table);
 		return $this->db->count_all_results();
 	}
-
+	public function updateQty($table,$data1,$data2,$data3,$pos)
+	{
+		$this->db->set('qty','qty+'.$pos,FALSE);
+		$this->db->where($data2);
+		$this->db->where($data3);
+		$this->db->where($data1);
+		if ($this->db->update($table)) {
+			return array('status' => 'berhasil');	
+		}else{
+			return array('status' => 'gagal');	
+		}
+	}
+	public function ambilQTY($table,$data1,$data2,$data3)
+	{
+		$this->db->where($data2);
+		$this->db->where($data3);
+		$this->db->where($data1);
+		return $this->db->get($table);
+	}
 }
 
 /* End of file Mod_paket.php */

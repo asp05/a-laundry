@@ -10,8 +10,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?=base_url('assets/')?>plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?=base_url('assets/plugins')?>/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -75,6 +73,9 @@
 <script src="<?=base_url('assets')?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- AdminLTE App -->
 <script src="<?=base_url('assets/')?>dist/js/adminlte.js"></script>
+<!-- InputMask -->
+<script src="<?=base_url('assets/')?>plugins/moment/moment.min.js"></script>
+<script src="<?=base_url('assets/')?>plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <script>
   const Toast = Swal.mixin({
       toast: true,

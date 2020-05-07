@@ -14,9 +14,10 @@ class Home extends CI_Controller {
 		$data = array(
 			'judul'	=> 'Home',
 			'userr'	=> $this->mc->mengambil('user')->num_rows(),
+			'trk'	=> $this->mc->mengambil('tbl_transaksi')->num_rows(),
 			'jenis'	=> $this->mc->mengambil('jenis')->num_rows(),
 			'outlet'=> $this->mc->mengambil('outlet',FALSE)->num_rows(),
-			'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+			'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 		);
 		$this->andi->sugara('master/home',$data);
 	}

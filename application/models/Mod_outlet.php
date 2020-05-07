@@ -54,6 +54,31 @@ class Mod_outlet extends CI_Model {
 		$this->db->from($this->table);
 		return $this->db->count_all_results();
 	}
+	public function ambilPaket($table,$where,$wheree)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->where($where);
+		$this->db->where($wheree);
+		return $this->db->get();
+	}
+	public function ambilHarga($table,$where,$wheree,$whereee)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->where($where);
+		$this->db->where($wheree);
+		$this->db->where($whereee);
+		return $this->db->get();
+	}
+	public function ambilSementara()
+	{
+		$this->db->select('*');
+		$this->db->from('sementara');
+		$this->db->join('jenis', 'sementara.id_jenis_paket = jenis.id_jenis_paket', 'left');
+		$this->db->where('id_user', $this->session->userdata('id'));
+		return $this->db->get();
+	}
 
 }
 

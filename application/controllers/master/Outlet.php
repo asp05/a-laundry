@@ -15,7 +15,7 @@ class Outlet extends CI_Controller {
 	{
 		$data = array(
 			'judul'	=> 'Master Outlet',
-			'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+			'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 		);
 		$this->andi->sugara('master/outlet/index',$data);
 	}
@@ -80,7 +80,7 @@ class Outlet extends CI_Controller {
 		if ($this->form_validation->run() == false) {
 			$data = array(
 			'judul'	=> 'Tambah Outlet',
-			'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+			'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 			);
 			$this->andi->sugara('master/outlet/tambah', $data);
 		}else{
@@ -131,7 +131,7 @@ class Outlet extends CI_Controller {
 			$data =  array(
 				'judul'		=> 'Edit Outlet',
 				'outlet'	=> $this->mc->mengambil('outlet',['id_outlet' => $id])->row_array(),
-				'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),	
+				'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),	
 			);
 			$this->andi->sugara('master/outlet/edit',$data);
 		}else{

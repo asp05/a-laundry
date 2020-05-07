@@ -14,7 +14,7 @@ class Pelanggan extends CI_Controller {
 	{
 		$data = array(
 			'judul'	=> 'Master Pelanggan',
-			'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array()
+			'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array()
 		);
 		$this->andi->sugara('master/pelanggan/index',$data);
 	}
@@ -28,7 +28,11 @@ class Pelanggan extends CI_Controller {
 			$row = array();
 			$row[] = $no;
 			$row[] = $x->nama;  	
-			$row[] = $x->jenis_kelamin;  	
+			if ($x->jenis_kelamin == 'L') {
+		  		$row[] = 'Laki-Laki' ; 
+		  	}elseif ($x->jenis_kelamin == 'P') {
+		  		$row[] = 'Perempuan';
+		  	}  	
 			$row[] = $x->tlp;
 			$row[] = $this->btn($x);
 			$data[]= $row;  	
@@ -48,8 +52,8 @@ class Pelanggan extends CI_Controller {
 		$button .= 'Aksi';
 		$button .= '</button>';
 		$button .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
-		$button 	.= '<a href="'.base_url('master/outlet/edit/' .base64_encode($x->id_member)).'" class="dropdown-item" title="">Edit</a>';
-		$button 	.= '<a href="'.base_url('master/outlet/delete/' .base64_encode($x->id_member)).'" class="dropdown-item hapus" title="">Hapus</a>';
+		$button 	.= '<a href="'.base_url('master/pelanggan/edit/' .base64_encode($x->id_member)).'" class="dropdown-item" title="">Edit</a>';
+		$button 	.= '<a href="'.base_url('master/pelanggan/delete/' .base64_encode($x->id_member)).'" class="dropdown-item hapus" title="">Hapus</a>';
 		$button .= '</div>';
 		$button .= '</div>';
 		$button .= "<script>
@@ -79,7 +83,7 @@ class Pelanggan extends CI_Controller {
 		if ($this->form_validation->run() == FALSE) {
 			$data = array(
 				'judul' => 'Tambah Member',
-				'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array()
+				'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array()
 			);
 			$this->andi->sugara('master/pelanggan/tambah',$data);
 		} else {
@@ -98,6 +102,52 @@ class Pelanggan extends CI_Controller {
 				$this->session->set_flashdata('eror', 'gagal ditambahkan');
 				redirect('master/pelanggan','refresh');
 			}
+		}
+	}
+	public function edit($id)
+	{
+		$this->form_validation->set_rules('nama', 'nama', 'trim|required');
+		$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
+		$this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'trim|required');
+		$this->form_validation->set_rules('tlp', 'telepon', 'trim|required|numeric');
+		$this->form_validation->set_message('required','{field} tidak boleh kosong');
+		$this->form_validation->set_message('numeric','{field} harus menggunakan karakter angka');
+		if ($this->form_validation->run() == FALSE) {
+			$id = base64_decode($id);
+			$data = array(
+				'judul'	=> 'Edit Pelanggan',
+				'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+				'member'=> $this->mc->mengambil('member',['id_member' => $id])->row_array()
+			);
+			$this->andi->sugara('master/pelanggan/edit',$data);
+		} else {
+			$id = base64_decode($id);
+			$data = array(
+				'nama'			=> $this->input->post('nama'),
+				'alamat'		=> $this->input->post('alamat'),
+				'jenis_kelamin'	=> $this->input->post('jenis_kelamin'),
+				'tlp'			=> $this->input->post('tlp'),
+			);
+			$q = $this->mc->ubah('member',$data,['id_member' => $id]);
+			if ($q['status'] == 'berhasil') {
+				$this->session->set_flashdata('pelanggan', 'berhasil di ubah');
+				redirect('master/pelanggan','refresh');
+			}else{
+				$this->session->set_flashdata('eror', 'gagal di ubah');
+				redirect('master/pelanggan','refresh');
+			}
+		}
+	}
+	public function delete($id)
+	{
+		$id = base64_decode($id);
+		$q = $this->mc->menghapus('member',['id_member' => $id]);
+		if ($q['status'] == 'berhasil') {
+			$this->session->set_flashdata('pelanggan', 'berhasil dihapus');
+			redirect('master/pelanggan','refresh');
+		}else{
+			$this->session->set_flashdata('eror', 'gagal dihapus');
+				redirect('master/pelanggan','refresh');
 		}
 	}
 	public function validasi()

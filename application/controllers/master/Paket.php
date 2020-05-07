@@ -16,7 +16,7 @@ class Paket extends CI_Controller {
 			'judul'	=> 'Master Paket',
 			'outlet'=> $this->mc->mengambil('outlet')->result(),
 			'jenis'=> $this->mc->mengambil('jenis')->result(),
-			'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+			'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 		);
 		$this->andi->sugara('master/paket/index',$data);
 	}
@@ -84,7 +84,7 @@ class Paket extends CI_Controller {
 				'judul'	=> 'Tambah Paket',
 				'outlet'=> $this->mc->mengambil('outlet')->result(),
 				'jenis'=> $this->mc->mengambil('jenis')->result(),
-				'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+				'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 			);
 			$this->andi->sugara('master/paket/tambah',$data);
 		}else{
@@ -99,7 +99,7 @@ class Paket extends CI_Controller {
 					'judul'	=> 'Tambah Paket',
 					'outlet'=> $this->mc->mengambil('outlet')->result(),
 					'jenis'=> $this->mc->mengambil('jenis')->result(),
-					'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+					'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 				);
 				$this->session->set_flashdata('error', 'sudah tersedia di outlet');
 				$this->andi->sugara('master/paket/tambah',$data);
@@ -167,7 +167,7 @@ class Paket extends CI_Controller {
 			$id = base64_decode($id);
 			$data = array(
 				'judul'	=> 'Edit Paket',
-				'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+				'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 				'outlet'=> $this->mc->mengambil('outlet')->result(),
 				'jenis'=> $this->mc->mengambil('jenis')->result(),
 				'paket'=> $this->mc->mengambil('paket',['id_paket' => $id])->row_array()

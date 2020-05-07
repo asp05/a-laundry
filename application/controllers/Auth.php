@@ -14,13 +14,14 @@ class Auth extends CI_Controller {
 		}else{
 			$username 	= $this->input->post('username');
 			$password 	= $this->input->post('password');
-			$q 			= $this->mc->mengambil('user',["username" => $username])->row_array();
+			$q 			= $this->mc->mengambil_user('user',["username" => $username])->row_array();
 			if ($q) {
 			 	if (password_verify($password, $q['password'])) {
 			 		$data = array(
 			 			'nama' 	=> $q['nama_user'],
 			 			'id'	=> $q['id_user'],
 			 			'role'	=> $q['role'],
+			 			'outlet'=> $q['id_outlet']
 			 		);
 			 		$this->session->set_userdata( $data );
 			 		$this->session->set_flashdata('berhasil', 'anda berhasil login');

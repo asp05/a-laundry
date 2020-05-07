@@ -101,8 +101,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview <?=($this->uri->segment(2) == 'transaksi') ? 'menu-open' : '' ?>">
+            <a href="#" class="nav-link <?=($this->uri->segment(2) == 'transaksi') ? 'active' : '' ?>">
               <i class="nav-icon fa fa-money"></i>
               <p>
                 Transaksi
@@ -111,9 +111,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=base_url('')?>" class="nav-link">
+                <a href="<?=base_url('master/transaksi/tambah')?>" class="nav-link <?=($this->uri->segment(3) == 'tambah') ? 'active' : '' ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Entri Transaksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?=base_url('master/transaksi')?>" class="nav-link <?=($this->uri->segment(3) == 'transaksi') ? 'active' : '' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transaksi</p>
                 </a>
               </li>
             </ul>

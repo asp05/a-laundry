@@ -11,6 +11,14 @@ class Mod_crud extends CI_Model {
             return array('status' => 'gagal');
         }
 	}
+    public function simpan2($table,$data)
+    {
+        if ($this->db->insert_batch($table, $data)) {
+            return array('status' => 'berhasil','id' => $this->db->insert_id());
+        }else{
+            return array('status' => 'gagal');
+        }
+    }
 	public function menghapus($tabel, $data = null)
     {
         if ($data != null) {
@@ -29,6 +37,29 @@ class Mod_crud extends CI_Model {
     	}elseif($data ==null){
     		return $this->db->get($table);
     	}else{
+            return array('status' => 'gagal');
+        }
+    }
+    public function mengambil_paket($table,$data)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->join('jenis', 'paket.jenis_paket = jenis.id_jenis_paket', 'left');
+        $this->db->where($data);
+        $this->db->group_by('jenis_paket');
+        return $this->db->get();
+    }
+    public function mengambil_user($table,$data = null)
+    {
+        if ($data != null) {
+            $this->db->select('*');
+            $this->db->from('user');
+            $this->db->join('outlet', 'user.id_outlet = outlet.id_outlet', 'left');
+            $this->db->where($data);
+            return $this->db->get();
+        }elseif($data ==null){
+            return $this->db->get($table);
+        }else{
             return array('status' => 'gagal');
         }
     }

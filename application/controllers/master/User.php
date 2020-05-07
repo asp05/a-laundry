@@ -15,7 +15,7 @@ class User extends CI_Controller {
 		$data = array(
 			'judul'	=> 'Master User',
 			'outlet'=> $this->mc->mengambil('outlet')->result(),
-			'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+			'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 		);
 		$this->andi->sugara('master/user/index',$data);
 	}
@@ -99,7 +99,7 @@ class User extends CI_Controller {
 			$data = array(
 				'judul'	=> 'Tambah User',
 				'outlet'=> $this->mc->mengambil('outlet')->result(),
-				'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
+				'user'	=> $this->mc->mengambil_user('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 			);	
 			$this->andi->sugara('master/user/tambah',$data);
 		}else{
@@ -138,7 +138,7 @@ class User extends CI_Controller {
 		if ($this->form_validation->run() == FALSE) {
 			$data = array(
 				'judul'		=> 'Edit User',
-				'user'		=> $this->mc->mengambil('user',['id_user'=>$id])->row_array(),
+				'user'		=> $this->mc->mengambil_user('user',['id_user'=>$id])->row_array(),
 				'outlet'	=> $this->mc->mengambil('outlet')->result(),
 				'user'	=> $this->mc->mengambil('user',['nama_user' => $this->session->userdata('nama')])->row_array(),
 			);
